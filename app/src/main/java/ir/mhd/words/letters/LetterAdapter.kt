@@ -1,4 +1,4 @@
-package ir.mhd.words
+package ir.mhd.words.letters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
