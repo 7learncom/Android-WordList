@@ -1,8 +1,11 @@
 package ir.mhd.words.words
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import ir.mhd.words.R
 import ir.mhd.words.databinding.FragmentWordsBinding
 
@@ -29,22 +32,22 @@ class WordsFragment : Fragment(R.layout.fragment_words) {
     }
 
     private fun setupViews(){
-//        val prefixLetter = intent.getStringExtra(WordsActivity.KEY_LETTER)!!
-//        binding.tvTitle.text = "Words that starts with $prefixLetter"
-//
-//        val filteredWords = resources.getStringArray(R.array.words)
-//            .filter { it.startsWith(prefixLetter, ignoreCase = true) }
-//        val adapter = WordAdapter(filteredWords) {
-//            val uri = Uri.parse("${WordsActivity.SEARCH_PREFIX}$it")
-//            val intent = Intent(Intent.ACTION_VIEW, uri)
-//            startActivity(Intent.createChooser(intent, "Chose a program"))
-//        }
-//        binding.rvWords.adapter = adapter
-//        binding.rvWords.addItemDecoration(
-//            DividerItemDecoration(
-//                this,
-//                DividerItemDecoration.VERTICAL
-//            )
-//        )
+        val prefixLetter = requireArguments().getString(KEY_LETTER)!!
+        binding.tvTitle.text = "Words that starts with $prefixLetter"
+
+        val filteredWords = resources.getStringArray(R.array.words)
+            .filter { it.startsWith(prefixLetter, ignoreCase = true) }
+        val adapter = WordAdapter(filteredWords) {
+            val uri = Uri.parse("${SEARCH_PREFIX}$it")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(Intent.createChooser(intent, "Chose a program"))
+        }
+        binding.rvWords.adapter = adapter
+        binding.rvWords.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
     }
 }

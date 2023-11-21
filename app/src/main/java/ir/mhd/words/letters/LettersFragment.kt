@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import ir.mhd.words.R
 import ir.mhd.words.databinding.FragmentLettersBinding
+import ir.mhd.words.words.WordsFragment
 
-class LettersFragment: Fragment() {
+class LettersFragment : Fragment() {
 
     private var _binding: FragmentLettersBinding? = null
     private val binding: FragmentLettersBinding
@@ -33,7 +35,7 @@ class LettersFragment: Fragment() {
         _binding = null
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         setupRecyclerView()
         setupLayoutManagerButton()
     }
@@ -41,7 +43,11 @@ class LettersFragment: Fragment() {
     private fun setupRecyclerView() {
         val letters = ('A'..'Z').map { it.toString() }
         val adapter = LetterAdapter(letters) {
-
+            val bundle = Bundle()
+                .apply {
+                    putString(WordsFragment.KEY_LETTER, it)
+                }
+            findNavController().navigate(R.id.action_lettersFragment_to_wordsFragment, bundle)
         }
         binding.rvLetter.adapter = adapter
     }
