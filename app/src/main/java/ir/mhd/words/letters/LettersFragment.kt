@@ -43,11 +43,8 @@ class LettersFragment : Fragment() {
     private fun setupRecyclerView() {
         val letters = ('A'..'Z').map { it.toString() }
         val adapter = LetterAdapter(letters) {
-            val bundle = Bundle()
-                .apply {
-                    putString(WordsFragment.KEY_LETTER, it)
-                }
-            findNavController().navigate(R.id.action_lettersFragment_to_wordsFragment, bundle)
+            val action = LettersFragmentDirections.actionLettersFragmentToWordsFragment(it)
+            findNavController().navigate(action)
         }
         binding.rvLetter.adapter = adapter
     }

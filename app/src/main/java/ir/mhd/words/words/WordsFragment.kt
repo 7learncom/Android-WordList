@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import ir.mhd.words.R
 import ir.mhd.words.databinding.FragmentWordsBinding
@@ -12,9 +13,10 @@ import ir.mhd.words.databinding.FragmentWordsBinding
 class WordsFragment : Fragment(R.layout.fragment_words) {
 
     companion object {
-        const val KEY_LETTER = "letter"
         const val SEARCH_PREFIX = "https://www.google.com/search?q="
     }
+
+    private val args: WordsFragmentArgs by navArgs()
 
     private var _binding: FragmentWordsBinding? = null
     private val binding: FragmentWordsBinding
@@ -32,7 +34,7 @@ class WordsFragment : Fragment(R.layout.fragment_words) {
     }
 
     private fun setupViews(){
-        val prefixLetter = requireArguments().getString(KEY_LETTER)!!
+        val prefixLetter = args.letter
         binding.tvTitle.text = "Words that starts with $prefixLetter"
 
         val filteredWords = resources.getStringArray(R.array.words)
